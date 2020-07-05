@@ -2,6 +2,7 @@ package github.fetcher.configuration;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import github.fetcher.model.StatusCode;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.HttpMediaTypeNotAcceptableException;
@@ -20,6 +21,7 @@ public class ErrorHandler extends DefaultHandlerExceptionResolver {
     public String handleHttpMediaTypeNotAcceptableException() {
         logger.info("Unsupported MediaType request occurred");
         ObjectMapper mapper = new ObjectMapper();
+        mapper.enable(SerializationFeature.INDENT_OUTPUT);
         try {
             return mapper.writeValueAsString(StatusCode.builder()
                     .status(HttpStatus.NOT_ACCEPTABLE.value())
