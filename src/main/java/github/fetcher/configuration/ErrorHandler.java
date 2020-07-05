@@ -15,6 +15,10 @@ import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolv
 @ControllerAdvice
 public class ErrorHandler extends DefaultHandlerExceptionResolver {
 
+    /**
+     * Handling the ErrorMessage for unsupported MediaTypes in the requested format.
+     * @return JSON String containing Errortype and Message.
+     */
     @ResponseBody
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
     @ExceptionHandler(HttpMediaTypeNotAcceptableException.class)

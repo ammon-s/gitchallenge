@@ -25,6 +25,11 @@ public class DataCollectionService {
 
     final static Logger logger = LoggerFactory.getLogger(DataCollectionService.class);
 
+    /**
+     * Searches for repositories and branches on github for a given username.
+     * @param username username to search for.
+     * @return JSON RepsonseEntity with information/error message.
+     */
     public ResponseEntity<?> getUserdata(String username) {
         URL url = null;
         try {
@@ -50,6 +55,7 @@ public class DataCollectionService {
                         .Message("API rate limit exceeded")
                         .build(),HttpStatus.FORBIDDEN);
             } else {
+                //InputStream throws FileNotFound exception if user is not found.
                 return new ResponseEntity<>(StatusCode.builder()
                         .status(HttpStatus.NOT_FOUND.value())
                         .Message("User not Found")
@@ -60,6 +66,11 @@ public class DataCollectionService {
         return new ResponseEntity<>(User.builder().repositories(repos).build(), HttpStatus.OK);
     }
 
+    /**
+     * Transfers a JSONObject to a Repository class, calls search for branch info.
+     * @param object JsonObject of Repository info.
+     * @return Repository as class object
+     */
     private Repository getRepo(JsonObject object) {
         String branchURL = object.getString("branches_url");
         branchURL = branchURL.replace("{/branch}","");
@@ -78,6 +89,11 @@ public class DataCollectionService {
                 .build();
     }
 
+    /**
+     * Searches for branch info of a repository given an URL
+     * @param url Brnach URL
+     * @return List of Branches.
+     */
     private List<Branch> getBranchInfo(URL url) {
         List<Branch> result = new ArrayList<>();
 

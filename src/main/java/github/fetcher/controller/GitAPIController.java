@@ -22,6 +22,12 @@ public class GitAPIController {
         this.dataCollectorService = dataCollectionService;
     }
 
+    /**
+     * Request Controller for github information given a username.
+     * @param username username to search for.
+     * @param request HttpServletRequest to fetch IP.
+     * @return returns JSON Repsonse of userdata/error message
+     */
     @RequestMapping(value = "/user/{username}",method= RequestMethod.GET,
             produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getUserData(@PathVariable("username")String username, HttpServletRequest request) {
