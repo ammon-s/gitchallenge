@@ -25,7 +25,7 @@ public class GitAPIController {
     @RequestMapping(value = "/user/{username}",method= RequestMethod.GET,
             produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getUserData(@PathVariable("username")String username, HttpServletRequest request) {
-        logger.info(request.getRemoteAddr() + " requested userdate for: "+username);
+        logger.info(request.getRemoteAddr() + " requested userdata for: "+username);
         return dataCollectorService.getUserdata(username);
     }
 
